@@ -72,9 +72,10 @@ class scaner:
     def __check_cipher(self, ip, cip):
         try:
             cmd = ['timeout','1','openssl', 's_client', '-connect', '{}:{}'.format(ip, self.port), '-cipher', cip]
-            data = subprocess.run(cmd, capture_output=True).stdout.decode().strip()
+            all_data = subprocess.run(cmd, capture_output=True)
+            data = all_data.stdout.decode().strip() + all_data.stderr.decode().strip()
             with open('log.txt','a') as f_obj:
-                f_obj.write('[*] ' + datetime.datetime.utcnow().strftime('%y.%m.%d.%H:%M:%S') + ' | ' + '{}\n'.format(data))
+                f_obj.write('='*32+'\n[*] ' + datetime.datetime.utcnow().strftime('%y.%m.%d.%H:%M:%S') + ' | ' + '{}\n'.format(data))
             if data == '':
                 return 2
             if 'Secure Renegotiation IS supported' in data:
