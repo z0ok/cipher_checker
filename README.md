@@ -4,6 +4,8 @@ Simple script to check server SSL ciphers.
 
 [Inspired by ...](https://superuser.com/questions/109213/how-do-i-list-the-ssl-tls-cipher-suites-a-particular-website-offers)
 
+Use [this](https://ciphersuite.info/cs/) to find exact openSSL ciphers.
+
 ```
 usage: checker.py [-h] [--clear] [--scope SCOPE_FILE] [--ip SCOPE_IP] [--port TARGET_PORT]
                   [--ciphers CIPH_FILE] [--output OUTPUT] [--verbose]
