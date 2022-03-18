@@ -57,6 +57,7 @@ class scaner:
 ]
         self.verbose = False
         self.output = './'
+        self.timeout = 1
 
     def show_details(self):
         try:
@@ -64,7 +65,8 @@ class scaner:
             for item in self.targets:
                 print('- {}'.format(item))
             print('[*] Target port:', self.port)
-            print('[*] Target path:', self.output)
+            print('[*] Target output path:', self.output)
+            print('[*] Target timeout:', self.timeout)
             print('[*] Target ciphers:')
             for item in self.ciphers:
                 print('- {}'.format(item))
@@ -105,7 +107,7 @@ class scaner:
 
     def __check_cipher(self, ip, cip):
         try:
-            cmd = ['timeout','1','openssl', 's_client', '-connect', '{}:{}'.format(ip, self.port), '-cipher', cip]
+            cmd = ['timeout', self.timeout,'openssl', 's_client', '-connect', '{}:{}'.format(ip, self.port), '-cipher', cip]
             all_data = subprocess.run(cmd, capture_output=True)
             data = all_data.stdout.decode().strip() + all_data.stderr.decode().strip()
             with open(os.path.join(self.output, 'log.txt'),'a') as f_obj:
@@ -130,6 +132,7 @@ def args():
         parser.add_argument('--port', dest='target_port', action='store', help='Port to check. Default: 443')
         parser.add_argument('--ciphers', dest='ciph_file', action='store', type=argparse.FileType('r'), help='File with Ciphers. Default: SHA1')
         parser.add_argument('--output', dest='output', action='store', help='Output dir. Default: ./')
+        parser.add_argument('--timeout', dest='timeout', action='store', help='Request timeout. Default: 1')
         parser.add_argument('--verbose', dest='verbose', action='store_true', help='Print all results.')
         if len(sys.argv)==1:
             parser.print_help(sys.stderr)
@@ -156,6 +159,8 @@ def args():
                 exit()
         if parser.clear:
             scan_obj.clear_files()
+        if parser.timeout:
+            scan_obj.timeout = parser.timeout
         ### Init ciphers 
         if parser.ciph_file:
             scan_obj.ciphers = strip_targets(parser.ciph_file)
