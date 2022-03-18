@@ -1,10 +1,11 @@
 ## Cipher checker
 
-Simple script to check server SSL ciphers.
-
+Simple script to check server SSL ciphers.  
+Just an automation of ```openssl s_client -connect IP:PORT -cipher CIPHER ```
+  
 [Inspired by ...](https://superuser.com/questions/109213/how-do-i-list-the-ssl-tls-cipher-suites-a-particular-website-offers)
 
-Use [this](https://ciphersuite.info/cs/) to find exact openSSL ciphers.
+Use [this page](https://ciphersuite.info/cs/) to find exact openSSL ciphers and their description.
 
 ```
 usage: checker.py [-h] [--clear] [--scope SCOPE_FILE] [--ip SCOPE_IP] [--port TARGET_PORT]
@@ -25,7 +26,7 @@ optional arguments:
 ```
 
 
-Generates list of files:
+Script generates files:
 - success.txt - IPs accepted cipher;
 - rejects.txt - IPs rejected cipher;
 - no_answ.txt - IPs didn't answer;
