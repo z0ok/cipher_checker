@@ -73,12 +73,11 @@ class scaner:
             exit()
 
     def clear_files(self):
-        print(os.path.join(self.output, 'log.txt'))
         open(os.path.join(self.output, 'log.txt'), 'w')
         open(os.path.join(self.output, 'success.txt'), 'w')
         open(os.path.join(self.output, 'no_answ.txt'), 'w')
         open(os.path.join(self.output, 'rejects.txt'), 'w')
-    
+
     def __check_cipher(self, ip, cip):
         try:
             cmd = ['timeout','1','openssl', 's_client', '-connect', '{}:{}'.format(ip, self.port), '-cipher', cip]
@@ -110,7 +109,7 @@ def args():
         if len(sys.argv)==1:
             parser.print_help(sys.stderr)
             exit()
-    
+
         parser = parser.parse_args()
         if parser.scope_file and parser.scope_ip:
             print('[-] Either scope list or 1 IP. I\'m lazy ;)')
