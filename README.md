@@ -8,7 +8,7 @@ Use [this](https://ciphersuite.info/cs/) to find exact openSSL ciphers.
 
 ```
 usage: checker.py [-h] [--clear] [--scope SCOPE_FILE] [--ip SCOPE_IP] [--port TARGET_PORT]
-                  [--ciphers CIPH_FILE] [--output OUTPUT] [--verbose]
+                  [--ciphers CIPH_FILE] [--output OUTPUT] [--timeout TIMEOUT] [--verbose]
 
 Small script to check SSL ciphersuits.
 
@@ -18,8 +18,9 @@ optional arguments:
   --scope SCOPE_FILE   File with IP scope.
   --ip SCOPE_IP        Single IP to check.
   --port TARGET_PORT   Port to check. Default: 443
-  --ciphers CIPH_FILE  File with Ciphers. Default: SHA1
+  --ciphers CIPH_FILE  File with Ciphers. Default: weak.
   --output OUTPUT      Output dir. Default: ./
+  --timeout TIMEOUT    Request timeout. Default: 1
   --verbose            Print all results.
 ```
 

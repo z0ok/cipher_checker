@@ -130,7 +130,7 @@ def args():
         parser.add_argument('--scope', dest='scope_file', action='store', type=argparse.FileType('r'), help='File with IP scope.')
         parser.add_argument('--ip', dest='scope_ip', action='store', help='Single IP to check.')
         parser.add_argument('--port', dest='target_port', action='store', help='Port to check. Default: 443')
-        parser.add_argument('--ciphers', dest='ciph_file', action='store', type=argparse.FileType('r'), help='File with Ciphers. Default: SHA1')
+        parser.add_argument('--ciphers', dest='ciph_file', action='store', type=argparse.FileType('r'), help='File with Ciphers. Default: weak')
         parser.add_argument('--output', dest='output', action='store', help='Output dir. Default: ./')
         parser.add_argument('--timeout', dest='timeout', action='store', help='Request timeout. Default: 1')
         parser.add_argument('--verbose', dest='verbose', action='store_true', help='Print all results.')
