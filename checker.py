@@ -73,11 +73,11 @@ class scaner:
             exit()
 
     def clear_files(self):
+        print(os.path.join(self.output, 'log.txt'))
         open(os.path.join(self.output, 'log.txt'), 'w')
         open(os.path.join(self.output, 'success.txt'), 'w')
         open(os.path.join(self.output, 'no_answ.txt'), 'w')
         open(os.path.join(self.output, 'rejects.txt'), 'w')
-
     
     def __check_cipher(self, ip, cip):
         try:
@@ -85,7 +85,7 @@ class scaner:
             all_data = subprocess.run(cmd, capture_output=True)
             data = all_data.stdout.decode().strip() + all_data.stderr.decode().strip()
             with open(os.path.join(self.output, 'log.txt'),'a') as f_obj:
-                f_obj.write('='*32+'\n[*] ' + datetime.datetime.utcnow().strftime('%y.%m.%d.%H:%M:%S') + ' | ' + '{}\n'.format(data))
+                f_obj.write('='*32+'\n[*] ' + datetime.datetime.utcnow().strftime('%y.%m.%d.%H:%M:%S') + ' | '  + str(ip) +':' + str(self.port)  + ' | ' + '{}\n'.format(data))
             if data == '':
                 return 2
             if 'Secure Renegotiation IS supported' in data:
@@ -122,8 +122,6 @@ def args():
         else:
             print('[-] No target. ')
             exit()
-        if parser.clear:
-            scan_obj.clear_files()
         if parser.verbose: scan_obj.verbose = True
         if parser.target_port: scan_obj.port = parser.target_port
         if parser.output: 
@@ -132,7 +130,8 @@ def args():
             else: 
                 print('[-] No such directory :(')
                 exit()
-            
+        if parser.clear:
+            scan_obj.clear_files()
         ### Init ciphers 
         if parser.ciph_file:
             scan_obj.ciphers = strip_targets(parser.ciph_file)
