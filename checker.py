@@ -57,7 +57,7 @@ class scaner:
 ]
         self.verbose = False
         self.output = './'
-        self.timeout = 1
+        self.timeout = '1'
 
     def show_details(self):
         try:
