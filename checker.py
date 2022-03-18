@@ -71,6 +71,13 @@ class scaner:
         except Exception as error:
             print('[!] Scan process error:', error)
             exit()
+
+    def clear_files(self):
+        open(os.path.join(self.output, 'log.txt'), 'w')
+        open(os.path.join(self.output, 'success.txt'), 'w')
+        open(os.path.join(self.output, 'no_answ.txt'), 'w')
+        open(os.path.join(self.output, 'rejects.txt'), 'w')
+
     
     def __check_cipher(self, ip, cip):
         try:
@@ -105,8 +112,6 @@ def args():
             exit()
     
         parser = parser.parse_args()
-        if parser.clear:
-            clear_files()
         if parser.scope_file and parser.scope_ip:
             print('[-] Either scope list or 1 IP. I\'m lazy ;)')
             exit()
@@ -117,6 +122,8 @@ def args():
         else:
             print('[-] No target. ')
             exit()
+        if parser.clear:
+            scan_obj.clear_files()
         if parser.verbose: scan_obj.verbose = True
         if parser.target_port: scan_obj.port = parser.target_port
         if parser.output: 
@@ -145,12 +152,6 @@ def strip_targets(target_f):
     except Exception as error:
         print('[!] Strip error:', error)
         exit()
-
-def clear_files():
-    open(os.path.join(self.output, 'log.txt'), 'w')
-    open(os.path.join(self.output, 'success.txt'), 'w')
-    open(os.path.join(self.output, 'no_answ.txt'), 'w')
-    open(os.path.join(self.output, 'rejects.txt'), 'w')
 
 ### ============================
 if __name__ == '__main__':
